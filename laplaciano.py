@@ -30,9 +30,13 @@ def mask_1(image, pixel,factorMult):
     p6 = get_pixel(image,(pixel[0],pixel[1]+1))
     p8 = get_pixel(image,(pixel[0]+1,pixel[1]))
     
-    pMedia = (p2 + p4 + (p5*-4) + p6 + p8)*factorMult
+    pMedia = (p2 + p4 + (p5*-4) + p6 + p8)
+    if pMedia<0:
+        pMedia = 0
+    else:
+        pMedia = pMedia*factorMult
 
-    return round(pMedia/9.0)
+    return round(pMedia)
 
 def mask_2(image, pixel, factorMult):
     p1 = get_pixel(image,(pixel[0]-1,pixel[1]-1)) 
@@ -44,9 +48,12 @@ def mask_2(image, pixel, factorMult):
     p7 = get_pixel(image,(pixel[0]+1,pixel[1]-1))
     p8 = get_pixel(image,(pixel[0]+1,pixel[1]))
     p9 = get_pixel(image,(pixel[0]+1,pixel[1]+1))
-    pMedia = (p1 + p2 + p3 + p4 + (p5*-8) + p6 + p7 + p8 + p9)*factorMult
-    
-    return pMedia/9
+    pMedia = (p1 + p2 + p3 + p4 + (p5*-8) + p6 + p7 + p8 + p9)
+    if pMedia<0:
+        pMedia = 0
+    else:
+        pMedia = pMedia*factorMult
+    return round(pMedia)
 
 def mask_3(image, pixel, factorMult):
     p2 = get_pixel(image,(pixel[0]-1,pixel[1]))
@@ -54,9 +61,13 @@ def mask_3(image, pixel, factorMult):
     p5 = get_pixel(image,(pixel[0],pixel[1])) 
     p6 = get_pixel(image,(pixel[0],pixel[1]+1))
     p8 = get_pixel(image,(pixel[0]+1,pixel[1]))
-    pMedia = ((-p2) + (-p4) + (p5 *4) + (-p6) + (-p8))*factorMult
+    pMedia = ((-p2) + (-p4) + (p5 *4) + (-p6) + (-p8))
     
-    return pMedia/9
+    if pMedia<0:
+        pMedia = 0
+    else:
+        pMedia = pMedia*factorMult
+    return round(pMedia)
 
 def mask_4(image, pixel,factorMult):
     p1 = get_pixel(image,(pixel[0]-1,pixel[1]-1)) 
@@ -68,9 +79,14 @@ def mask_4(image, pixel,factorMult):
     p7 = get_pixel(image,(pixel[0]+1,pixel[1]-1))
     p8 = get_pixel(image,(pixel[0]+1,pixel[1]))
     p9 = get_pixel(image,(pixel[0]+1,pixel[1]+1))
-    pMedia = ((-p1) + (-p2) + (-p3) + (-p4) + (p5*8) + (-p6) + (-p7) + (-p8) + (-p9))*factorMult
+    pMedia = ((-p1) + (-p2) + (-p3) + (-p4) + (p5*8) + (-p6) + (-p7) + (-p8) + (-p9))
+
+    if pMedia<0:
+        pMedia = 0
+    else:
+        pMedia = pMedia*factorMult
     
-    return pMedia/9
+    return round(pMedia)
 
 def Laplacian_transform(image, masknum, factorMult):
     n_image = Image.new("L", (image.size[0], image.size[1]))
